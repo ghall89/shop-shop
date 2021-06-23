@@ -5,6 +5,7 @@ import { useStoreContext } from '../utils/GlobalState';
 import { UPDATE_PRODUCTS } from '../utils/actions';
 import { QUERY_PRODUCTS } from '../utils/queries';
 import spinner from '../assets/spinner.gif';
+import Cart from '../components/Cart';
 
 function Detail() {
 	const [state, dispatch] = useStoreContext();
@@ -18,11 +19,11 @@ function Detail() {
 
 	useEffect(() => {
 		if (products.length) {
-			setCurrentProduct(products.find((product) => product._id === id));
+			setCurrentProduct(products.find(product => product._id === id));
 		} else if (data) {
 			dispatch({
 				type: UPDATE_PRODUCTS,
-				products: data.products,
+				products: data.products
 			});
 		}
 	});
@@ -50,6 +51,7 @@ function Detail() {
 				</div>
 			) : null}
 			{loading ? <img src={spinner} alt="loading" /> : null}
+			<Cart />
 		</>
 	);
 }
