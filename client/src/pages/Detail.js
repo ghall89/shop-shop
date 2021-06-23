@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { idbPromise } from '../utils/helpers';
 import { useStoreContext } from '../utils/GlobalState';
 import {
 	REMOVE_FROM_CART,
@@ -30,8 +31,19 @@ function Detail() {
 				type: UPDATE_PRODUCTS,
 				products: data.products
 			});
+
+			data.products.forEach(product => {
+				idbPromise('products', 'put', product);
+			});
+		} else if (!loading) {
+			idbPromise('products', 'get').then(indexedProducts => {
+				dispatch({
+					type: UPDATE_PRODUCTS,
+					products: indexedProducts
+				});
+			});
 		}
-	});
+	}, [products, data, loading, dispatch, id]);
 
 	const addToCart = () => {
 		const itemInCart = cart.find(cartItem => cartItem._id === id);
