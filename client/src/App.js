@@ -4,7 +4,7 @@ import {
 	ApolloClient,
 	InMemoryCache,
 	ApolloProvider,
-	createHttpLink,
+	createHttpLink
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { StoreProvider } from './utils/GlobalState';
@@ -16,9 +16,10 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
 import OrderHistory from './pages/OrderHistory';
+import Success from './pages/Success';
 
 const httpLink = createHttpLink({
-	uri: '/graphql',
+	uri: '/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -26,14 +27,14 @@ const authLink = setContext((_, { headers }) => {
 	return {
 		headers: {
 			...headers,
-			authorization: token ? `Bearer ${token}` : '',
-		},
+			authorization: token ? `Bearer ${token}` : ''
+		}
 	};
 });
 
 const client = new ApolloClient({
 	link: authLink.concat(httpLink),
-	cache: new InMemoryCache(),
+	cache: new InMemoryCache()
 });
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
 							<Route exact path="/signup" component={Signup} />
 							<Route exact path="/orderHistory" component={OrderHistory} />
 							<Route exact path="/products/:id" component={Detail} />
+							<Route exact path="/success" component={Success} />
 							<Route component={NoMatch} />
 						</Switch>
 					</StoreProvider>
