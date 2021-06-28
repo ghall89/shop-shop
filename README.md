@@ -1,8 +1,8 @@
-# react-portfolio
+# 🛍️ shop-shop
 
 ## Description
 
-Yet another portfolio site, this time crated to demonstrate my knowledge of React. The layout and design was done with Material UI, and renders various components dynamically to allow for a "multi-page" single-page React app.
+A React-based shopping app built to learn state, and specifically Redux, to store persistant information and determine visibility of UI elements.
 
 ![](screenshot.png)
 
